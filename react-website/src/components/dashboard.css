@@ -1,0 +1,23 @@
+.dashboard-container{
+  display: flex;
+  flex-direction: column;
+  margin: 0 5%;
+  height: 100%;
+}
+.upper-dash{
+  height: 90%;
+  margin-top: 5%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  border: 7px solid rgb(0, 66, 0);
+  border-radius: 60px;
+  background-color: white;
+}
+.lower-dash{
+  margin: 30px auto;
+  justify-content: center;
+}
+.dash-item{
+  padding: 10px 40px;
+}

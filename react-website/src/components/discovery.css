@@ -1,0 +1,75 @@
+.discovery-wrapper {
+  display:flex;
+  flex-direction: column;
+}
+
+.discovery-container {
+  margin: 5vh 10vw;
+  max-height: 450px;
+  padding-top: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.export-btns-wrapper {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  width: auto;
+  flex-direction: row;
+}
+.export-btn {
+  margin: 15px auto;
+  border: 1px solid rgb(0, 172, 9);
+  background-color: rgb(0, 66, 0);
+  border-radius: 10px;
+  width: 60%;
+  height: 60px;
+}
+.copy-btn {
+  margin: 15px auto;
+  border: 1px solid rgb(0, 172, 9);
+  background-color: rgb(0, 66, 0);
+  border-radius: 10px;
+  width: 30%;
+  height: 60px;
+}
+.export-btn:hover {
+  cursor: pointer;
+  background-color: rgb(0, 48, 0);
+}
+.copy-btn:hover {
+  cursor: pointer;
+  background-color: rgb(0, 48, 0);
+}
+.text-wrapper {
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+  margin: auto;
+}
+.export-text {
+  text-align: center;
+  margin: auto;
+  margin-right: 5px;
+  color: rgb(216, 216, 216)
+}
+
+.icon {
+  margin-top: 25%;
+}
+
+.right {
+  width: 25%;
+  min-width: 200px;
+  right: 0;
+}
+.right > .list-container {
+  width: 100% ;
+}
+
+.left {
+  display:flex;
+  flex-direction: row;
+  width: 75%;
+}

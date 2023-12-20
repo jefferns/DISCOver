@@ -1,0 +1,23 @@
+.add-seed-item {
+  margin-top: 10px;
+  height: 4vw;
+
+
+  button {
+    border-radius: 50%;
+    font-size: 2vw;
+    width: 4vw;
+    border: none;
+    background-color: #e0e0e0;
+    
+    &:hover {
+      cursor: pointer;
+      background-color: #c1ccc3;
+    }
+
+    .input-group {
+      height: 4vw;
+
+    }
+  }
+}

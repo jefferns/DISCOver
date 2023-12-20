@@ -1,0 +1,28 @@
+.remove-seed{
+  display: flex;
+  justify-content: center;
+
+  background-color: transparent;
+  border: 0;
+  margin-right: 0;
+  width: auto;
+  height: auto;
+  border-bottom-right-radius: 8px;
+  border-top-right-radius: 8px;
+  padding: 0;
+  margin: 0;
+
+  .xout {
+    color: rgb(247, 107, 107);
+    font-size: 1.5vw;
+    margin: auto;
+  }
+}
+.remove-seed:hover{
+  cursor: pointer;
+  user-select: none;
+  background-color: rgb(247, 107, 107);
+  .xout {
+    color: white;
+  }
+}

@@ -1,0 +1,16 @@
+.list-container{
+  width: 350px;
+  max-height: 400px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  white-space: nowrap;
+  background-color: rgb(236, 236, 236);
+  border:1px solid rgb(134, 134, 134);
+}
+.list-container > h3{
+  margin: 0;
+  padding: 5px;
+  position: sticky;
+  top: 0;
+  background-color: lightgray;
+}

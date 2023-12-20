@@ -1,0 +1,21 @@
+.settings-panel {
+  width: 300px;
+  top: 45px;
+  left: 0;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  border: 5px solid rgb(0, 66, 0);
+  border-bottom-right-radius: 10px;
+  border-top-right-radius: 10px;
+  padding: 20px
+}
+
+.setting-option {
+  padding: 10px;
+}
+
+#volume-num {
+  width:22px;
+}

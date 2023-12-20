@@ -1,0 +1,17 @@
+.player-wrapper {
+  border: solid rgb(0, 66, 0) 4px;
+  border-bottom-left-radius: 30px;
+  border-bottom-right-radius: 30px;
+  max-width: 308px;
+  background-color: white;
+}
+.player-title {
+  color: rgb(0, 66, 0);
+  font-weight: bold;
+}
+.player-album:hover {
+  cursor: grab;
+}
+.album-art {
+  user-select: none;
+}
