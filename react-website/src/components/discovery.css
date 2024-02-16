@@ -1,15 +1,18 @@
 .discovery-wrapper {
   display:flex;
   flex-direction: column;
+  height: 100%;
 }
 
 .discovery-container {
   margin: 5vh 10vw;
-  max-height: 450px;
+  /* max-height: 450px; */
+  height: 100%;
+
   padding-top: 10px;
   display: flex;
-  flex-direction: row;
-  justify-content: center;
+  flex-wrap: wrap;
+  justify-content: space-between;
 }
 .export-btns-wrapper {
   display: flex;
@@ -60,9 +63,8 @@
 }
 
 .right {
-  width: 25%;
-  min-width: 200px;
-  right: 0;
+  width: 30%;
+
 }
 .right > .list-container {
   width: 100% ;
@@ -71,5 +73,11 @@
 .left {
   display:flex;
   flex-direction: row;
-  width: 75%;
+  max-width: 40%;
+  min-width: 308px;
+  height: fit-content;
+
+  flex-grow: 1;
+  margin-right: 20%;
+
 }

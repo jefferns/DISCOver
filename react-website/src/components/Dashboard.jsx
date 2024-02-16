@@ -7,9 +7,9 @@ import SettingsPanel from './Settings/SettingsPanel';
 import './dashboard.css';
 
 
-export default function Dashboard({ token }) {
+export default function Dashboard() {
   const [seeds, setSeeds] = useState([]);
-  const [seed_type, setSeedType] = useState('tracks');
+  const [seedType, setSeedType] = useState('track');
   const [discoveryMode, setDiscoveryMode] = useState(false);
   const [displayRecs, setDisplayingRecs] = useState(false);
   const [recommendations, setRecommendations] = useState([]);
@@ -52,7 +52,6 @@ export default function Dashboard({ token }) {
       ? <Discovery
           currentTrack={currentTrack}
           recommendations={recommendations}
-          token={token}
           settings={settings}
           setSettings={setSettings}
           setCurrentTrack={setCurrentTrack}
@@ -61,10 +60,9 @@ export default function Dashboard({ token }) {
           <div className='upper-dash'>
             <Seeding
               displayRecs={displayRecs}
-              token={token}
               seeds={seeds}
               settings={settings}
-              seed_type={seed_type}
+              seedType={seedType}
               setSeeds={setSeeds}
               setSeedType={setSeedType}
               setDiscoveryMode={setDiscoveryMode}

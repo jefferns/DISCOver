@@ -33,7 +33,6 @@ function Player({
     if(!wrapperRef) return;
 
     var deltaX = event.clientX - startPos.x;
-    console.info('deltaX', deltaX);
     var angle = deltaX / 10;
     const scale = getRingScale(deltaX);
     const color = deltaX > 1 ? 'green' : 'red';
@@ -50,19 +49,27 @@ function Player({
     setIsDragging(false);
     if(imgRef.current.style.transform) imgRef.current.style.removeProperty('transform');
     if(wrapperRef.current.style.boxShadow) wrapperRef.current.style.removeProperty('box-shadow');
+    if(Math.abs(event.clientX - startPos.x ) < 30) return;
     const decision = event.clientX - startPos.x > 0 ? 'right' : 'left';
     handleDrop(decision);
   }, [setIsDragging, handleDrop, startPos]);
 
   useEffect(()=>{
+
     let player = document.getElementById('player');
     let source = document.getElementById('source');
     source.src = track.preview_url;
 
-    player.volume = settings.volume / 100;
     player.load();
     player.play();
-  }, [track.preview_url, settings.volume]);
+  }, [track.preview_url]);
+
+  useEffect(() => {
+    // handle volume changes
+    let player = document.getElementById('player');
+    player.volume = settings.volume / 100;
+  }, [settings.volume]);
+
 
   useEffect(()=>{
     // Add event listeners for handling drag/tilt animations
@@ -85,7 +92,7 @@ function Player({
           id='album-art'
           alt='Album art not available'
           // draggable='false'
-          style={{'height':'300px', 'width':'300px'}}
+          // style={{'height':'300px', 'width':'300px'}}
           className='album-art'
           ref={imgRef}
         />

@@ -1,10 +1,10 @@
 .list-container{
-  margin: auto 2vw;
   width: 30vw;
-  height: 90%;
+  /* height: 90%; */
   background-color: white;
   border: 5px solid rgb(0, 66, 0);
   border-radius: 15px;
+  margin: 2%;
 }
 .list-container > h3{
   margin: 0;

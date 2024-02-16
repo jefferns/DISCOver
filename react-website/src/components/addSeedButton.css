@@ -1,14 +1,22 @@
 .add-seed-item {
+  display: flex;
+  justify-content: center;
   margin-top: 10px;
-  height: 4vw;
+  /* height: 4vw; */
+  width: 100%;
 
 
   button {
     border-radius: 50%;
-    font-size: 2vw;
-    width: 4vw;
+    font-size: 2em;
+    width: 2em;
+    height: 2em;
     border: none;
+    display: flex;
+    align-items:center;
+    justify-content: center;
     background-color: #e0e0e0;
+    color: rgb(0, 65, 0);
     
     &:hover {
       cursor: pointer;
@@ -16,7 +24,7 @@
     }
 
     .input-group {
-      height: 4vw;
+      /* height: 4vw; */
 
     }
   }

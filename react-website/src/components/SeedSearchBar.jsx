@@ -1,24 +1,16 @@
 import React, { useState } from "react";
+import './seedSearchBar.css';
 
 
 const SeedSearchBar = ({
-  category,
-  handleSearch,
-  setShowSearch
+  seedType,
+  handleChange,
 }) => {
-  const [searchInput, setSearchInput] = useState('');
-
   return ( 
     <div className="seed-search-bar">
       <input
-        onChange={event => setSearchInput(event.target.value)}
-        onKeyUp={event => {
-          if (event.key === 'Enter'){
-            handleSearch(searchInput);
-            setShowSearch(false);
-          }
-        }}
-        placeholder={`Search for ${category}`}
+        onChange={(e) => handleChange(e.target.value)}
+        placeholder={`Search for ${seedType}`}
       >
       </input>
     </div>

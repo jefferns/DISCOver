@@ -1,0 +1,13 @@
+.dropdown {
+  width: 100%;
+  padding: 0 4px;
+  font-size: 1.3em;
+  text-overflow: ellipsis;
+  letter-spacing: .2ch;
+  font-weight: bold;
+  text-align: center;
+  border-radius: 10px;
+  color: rgb(0, 66, 0);
+  background-color: rgb(224,224,224);
+  border: 2px solid rgb(0,66,0);
+}

@@ -2,16 +2,26 @@
   border: solid rgb(0, 66, 0) 4px;
   border-bottom-left-radius: 30px;
   border-bottom-right-radius: 30px;
-  max-width: 308px;
+  width: 100%;
   background-color: white;
-}
-.player-title {
-  color: rgb(0, 66, 0);
-  font-weight: bold;
-}
-.player-album:hover {
-  cursor: grab;
-}
-.album-art {
-  user-select: none;
+
+  .player-title {
+    color: rgb(0, 66, 0);
+    font-weight: bold;
+  }
+  .player-album {
+    margin: 10px;
+
+    .album-art {
+      user-select: none;
+      height: 90%;
+      width: 90%;
+      border: 1px solid rgb(0, 66, 0);
+      filter: drop-shadow(0px 0px 10px grey);
+    }
+  }
+  .player-album:hover {
+    cursor: grab;
+  }
+
 }

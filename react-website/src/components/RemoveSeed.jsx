@@ -1,28 +1,25 @@
-import React, { useCallback, useEffect } from "react";
+import React from "react";
 import './removeSeed.css';
 
 
 const RemoveSeed = ({
   handleRemove,
-  id
+  id,
+  isDragging,
 }) => {
-
-  const handleMouseDown = useCallback(() => {
-
-  }, []);
-
-  useEffect(() => {
-    // document.getElementById('album-art').addEventListener('dragstart', handleMouseDown);
-    document.getElementById('remove').addEventListener('dragstart', handleMouseDown);
-
-    return () => {
-
-    };
-  }, []);
+  const xstyling = isDragging ? {color: 'white'} : {};
+  const buttonStyling = isDragging 
+    ? {backgroundColor: 'rgb(247, 107, 107)'}
+    : {};
 
   return ( 
-    <div className="remove-seed" id='remove' onClick={() => handleRemove(id)}>
-      <div className="xout">
+    <div
+      className="remove-seed"
+      id='remove'
+      style={buttonStyling}
+      onClick={() => handleRemove(id)}
+    >
+      <div className="xout" style={xstyling}>
         x
       </div>
     </div>

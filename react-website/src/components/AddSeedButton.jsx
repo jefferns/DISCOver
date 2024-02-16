@@ -1,34 +1,41 @@
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useState } from 'react';
-import { Container, InputGroup, FormControl } from 'react-bootstrap';
 import './addSeedButton.css';
-import SeedSearchBar from './SeedSearchBar';
-
+import SeedingSelect from './SeedingSelect';
 
 
 const AddSeedButton = ({
-  category,
-  handleSearch,
-  seeds
+  seedType,
+  seeds,
 }) => {
-  
   const [showSearch, setShowSearch] = useState(false);
-  const show = seeds.length < 5;
+  const [show, setShow] = useState(true);
 
   useEffect(() => {
-    setShowSearch(false);
-  }, [seeds]);
+    if (seedType.includes('top')){
+      setShow(false);
+    } else if (seeds.length < 5) {
+      setShow(true);
+    }
+  }, [seeds, seedType]);
+
+  // useEffect(() => {
+  //   if (seedType.includes('top')){
+  //     console.info('settings false');
+  //     setShowSearch(false);
+  //   }
+  // }, [seedType]);
 
   return (
     show &&
     <div className="add-seed-item">
     { showSearch
-      ? <SeedSearchBar 
-        category={category}
-        handleSearch={handleSearch}
+      // ? <></>
+      ? <SeedingSelect
+        seedType={seedType}
         setShowSearch={setShowSearch}
       />
-      : <button className="add-seed-item" onClick={() => setShowSearch(true)}>
+      : <button type="button" className="add-seed-item" onClick={() => setShowSearch(true)}>
         + 
       </button>
     }

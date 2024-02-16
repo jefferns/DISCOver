@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState, useCallback, useMemo } from 'react';
-import { addTracksToPlaylist, createPlaylist, getMe, getRecommendations } from '../api';
+import { addTracksToPlaylist, createPlaylist, getMe, getRecommendations } from '../extras/api';
 import Player from './Player';
 import List from './List';
 import './discovery.css';
@@ -8,7 +8,6 @@ import './discovery.css';
 const Discovery = ({
   currentTrack,
   recommendations,
-  token,
   settings,
   setSettings,
   setCurrentTrack,
@@ -27,13 +26,13 @@ const Discovery = ({
     matches.forEach((song) => {
       uris.push(song.uri)
     })
-    addTracksToPlaylist(token, id, uris);
+    addTracksToPlaylist(id, uris);
   };
 
   const handleClick = () => {
     if(!id) return;
     // create playlist
-    createPlaylist(token, id, 'spotify-speed-dating')
+    createPlaylist(id, 'DISCOvery')
     .then(response => response.json())
     .then(response => {
       let playlist_id = response.id;
@@ -53,7 +52,7 @@ const Discovery = ({
   }
 
   useEffect(() => {
-    getMe(token)
+    getMe()
     .then(response => response.json())
     .then(response => {
       setId(response.id);
