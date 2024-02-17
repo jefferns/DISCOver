@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/DISCOvery/static/css/main.16446520.css",
+    "main.js": "/DISCOvery/static/js/main.4a126430.js",
+    "index.html": "/DISCOvery/index.html",
+    "main.16446520.css.map": "/DISCOvery/static/css/main.16446520.css.map",
+    "main.4a126430.js.map": "/DISCOvery/static/js/main.4a126430.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.16446520.css",
+    "static/js/main.4a126430.js"
+  ]
+}
