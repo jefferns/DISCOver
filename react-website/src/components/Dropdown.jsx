@@ -2,6 +2,7 @@ import './dropdown.css';
 import Options from './Options';
 
 const DropDown = ({
+  defaultValue = '',
   onChange,
   options,
   placeholderText = 'Choose an option', 
@@ -14,7 +15,7 @@ const DropDown = ({
       title={title}
       value={value}
       onChange={onChange}
-      style={{display: 'none'}}
+      defaultValue={defaultValue}
     >
       <Options 
         options={options}

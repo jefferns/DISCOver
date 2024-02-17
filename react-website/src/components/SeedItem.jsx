@@ -43,19 +43,19 @@ const SeedItem = ({id, seed, handleRemove, type}) => {
   }, [setIsDragging, setStartPos]);
   
   
-    useEffect(() => {
-      document.getElementById(id).addEventListener('mousedown', handleMouseDown);
-      document.addEventListener('mousemove', handleMouseMove);
-      document.addEventListener('mouseup', handleMouseUp);
-      document.addEventListener('mouseout', handleMouseUp);
+    // useEffect(() => {
+    //   document.getElementById(id).addEventListener('mousedown', handleMouseDown);
+    //   document.addEventListener('mousemove', handleMouseMove);
+    //   document.addEventListener('mouseup', handleMouseUp);
+    //   document.addEventListener('mouseout', handleMouseUp);
 
-      return () => {
-        document.getElementById(id)?.removeEventListener('mousedown', handleMouseDown);
-        document.removeEventListener('mousemove', handleMouseMove);
-        document.removeEventListener('mouseup', handleMouseUp);
-        document.removeEventListener('mouseout', handleMouseUp);
-      };
-    }, [id, handleMouseDown, handleMouseMove, handleMouseUp]);
+    //   return () => {
+    //     document.getElementById(id)?.removeEventListener('mousedown', handleMouseDown);
+    //     document.removeEventListener('mousemove', handleMouseMove);
+    //     document.removeEventListener('mouseup', handleMouseUp);
+    //     document.removeEventListener('mouseout', handleMouseUp);
+    //   };
+    // }, [id, handleMouseDown, handleMouseMove, handleMouseUp]);
 
   const width = isDragging ? {width: resizeWidth} : {};
 

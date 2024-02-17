@@ -7,15 +7,15 @@ const Options = ({
   placeholderText = '',
 }) => {
   return ( 
-    <div className="options">
-      <option key='default' value='default' disabled={true}> {placeholderText} </option>
+    <optgroup  className="options" label={placeholderText}>
+      {/* <option key='default' value='default' disabled={true}> {placeholderText} </option> */}
       {options.map(option => (
         <option key={option.id} value={option.value} onClick={onClick}>
           {option.name}
         </option>
         ))
       }
-    </div>
+    </optgroup >
    );
 }
  

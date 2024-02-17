@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import './settingsPanel.css';
 import { AdvancedSettings } from './AdvancedSettings';
+import TimeFrame from './TimeFrame';
 
 
 const SettingsPanel = ({settings, show, setSettings, setShowSettings}) => {
@@ -34,13 +35,7 @@ const SettingsPanel = ({settings, show, setSettings, setShowSettings}) => {
 
   return show
     ? <div ref={ref} className='settings-panel'>
-        <div className='setting-option' id='time'>
-          <select name='time-period' id='time' onChange={handleTimeChange} defaultValue={settings.time_range}>
-            <option value='short_term'> Short term </option>
-            <option value='medium_term'> Medium term </option>
-            <option value='long_term'> Long term </option>
-          </select >
-        </div>
+        <TimeFrame handleTimeChange={handleTimeChange} settings={settings}/>
         <div className='setting-option' id='volume'>
           <label>Volume: </label>
           <input

@@ -3,7 +3,7 @@
   padding: 0 4px;
   font-size: 1.3em;
   text-overflow: ellipsis;
-  letter-spacing: .2ch;
+  /* letter-spacing: .2ch; */
   font-weight: bold;
   text-align: center;
   border-radius: 10px;
