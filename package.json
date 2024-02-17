@@ -1,7 +1,7 @@
 {
+  "homepage": "https://jefferns.github.io/DISCOvery",
   "name": "react-website",
   "version": "0.1.0",
-  "homepage": "https://jefferns.github.io/DISCOvery",
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
@@ -14,8 +14,7 @@
     "react-scripts": "5.0.1"
   },
   "scripts": {
-    "back": "node index.js",
-    "front": "react-scripts start",
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
