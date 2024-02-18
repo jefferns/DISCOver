@@ -15,7 +15,6 @@ const DropDown = ({
       title={title}
       value={value}
       onChange={onChange}
-      defaultValue={defaultValue}
     >
       <Options 
         options={options}

@@ -52,12 +52,6 @@ const Seeding = ({
     setRecommendations
   ]);
 
-  // const handleSelect = event => {
-  //   const result = searchResults.find(element => element.id === event.target.value);
-  //   setSeeds([...seeds, result]);
-  //   setSearchResults([]);
-  // }
-
   const handleRemove = (id) => {
     setSeeds(seeds.filter((seed) => seed.id !== id) || []);
     if (!seeds.length) setDisplayingRecs(false);
@@ -115,6 +109,7 @@ const Seeding = ({
         <AddSeedButton
           seedType={seedType}
           seeds={seeds}
+          setSeeds={setSeeds}
         />
         {displayRecs ?
           <GoButton setDiscoveryMode={setDiscoveryMode}/>

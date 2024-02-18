@@ -7,6 +7,7 @@ import SeedingSelect from './SeedingSelect';
 const AddSeedButton = ({
   seedType,
   seeds,
+  setSeeds,
 }) => {
   const [showSearch, setShowSearch] = useState(false);
   const [show, setShow] = useState(true);
@@ -19,19 +20,18 @@ const AddSeedButton = ({
     }
   }, [seeds, seedType]);
 
-  // useEffect(() => {
-  //   if (seedType.includes('top')){
-  //     console.info('settings false');
-  //     setShowSearch(false);
-  //   }
-  // }, [seedType]);
+
+  const addSeed = useCallback((seed) => {
+    setSeeds([...seeds, seed]);
+  }, [seeds, setSeeds]);
+
 
   return (
     show &&
     <div className="add-seed-item">
     { showSearch
-      // ? <></>
       ? <SeedingSelect
+        addSeed={addSeed}
         seedType={seedType}
         setShowSearch={setShowSearch}
       />

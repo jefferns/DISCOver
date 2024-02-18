@@ -46,3 +46,14 @@ export const getRedirectURL = () => {
   if (hostname.includes('localhost')) return 'http://localhost:3000';
   return 'https://jefferis.dev';
 }
+
+export function debounce(cb, delay = 1000) {
+  let timeout
+
+  return (...args) => {
+    clearTimeout(timeout)
+    timeout = setTimeout(() => {
+      cb(...args)
+    }, delay)
+  }
+}

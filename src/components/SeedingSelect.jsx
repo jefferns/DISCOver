@@ -1,13 +1,13 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import SeedSearchBar from './SeedSearchBar';
 import './seedingSelect.css';
-import { debounce } from '../extras/hooks';
 import { searchSpotify } from '../extras/api';
 import Options from './Options';
+import { debounce } from '../extras/helpers';
 
-const SeedingSelect = ({setShowSearch, seedType}) => {
+const SeedingSelect = ({setShowSearch, seedType, addSeed}) => {
   const [searchText, setSearchText] = useState('');
-  // const [showSearch, setShowSearch] = useState(false);
+  const debouncedSetText = debounce(setSearchText);
   const [songs, setSongs] = useState([]);
 
   const handleSearch = useCallback(() => {
@@ -21,20 +21,26 @@ const SeedingSelect = ({setShowSearch, seedType}) => {
     })
   }, [seedType, searchText, setSongs]);
 
+  const handleClick = e => {
+    const result = songs.find(song => song.name === e.target.value);
+    addSeed(result);
+    setShowSearch(false);
+  };
+
   useEffect(() => {
     if(!searchText.length) return;
-    debounce(handleSearch(searchText));
+    handleSearch(searchText);
   }, [searchText, handleSearch]);
 
   return (
     <div className="seeding-select">
       <SeedSearchBar 
         seedType={seedType}
-        handleChange={setSearchText}
+        handleChange={debouncedSetText}
       />
       { !!songs &&
         <Options
-          onClick={() => setShowSearch(false)}
+          onClick={handleClick}
           options={songs}
         />
       }

@@ -10,7 +10,12 @@ const Options = ({
     <optgroup  className="options" label={placeholderText}>
       {/* <option key='default' value='default' disabled={true}> {placeholderText} </option> */}
       {options.map(option => (
-        <option key={option.id} value={option.value} onClick={onClick}>
+        <option 
+          className="option-row"
+          key={option.id}
+          value={option.value}
+          onClick={onClick}
+        >
           {option.name}
         </option>
         ))

@@ -1,3 +1,13 @@
 .options {
   width: 100%;
+  
+  .option-row {
+    margin: 1px 3px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    &:hover {
+      cursor: pointer;
+      background-color: #c1ccc3;
+    }
+  }
 }
