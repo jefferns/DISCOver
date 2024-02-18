@@ -1,10 +1,8 @@
-import { useState } from 'react';
-import { getToken } from './helpers';
+import { getRedirectURL, getToken } from './helpers';
 
 const URL = 'https://api.spotify.com/v1';
-const LOCAL_URL = 'http://localhost:8000';
 const API_URL = 'https://accounts.spotify.com/api';
-const redirect_URI = 'http://localhost:3000';
+const redirect_URI = getRedirectURL();
 
 const apiGet = async (path, options = {}) => {
   const token = getToken();
@@ -52,14 +50,6 @@ export const getApiKey = () => {
 };
 
 export const getClientId = () => {
-  // await fetch(LOCAL_URL + '/client', {
-  //   method: 'GET',
-  // }).then((res) => {
-  //   console.info(res);
-  //   return res.json();
-  // }).catch((err) => {
-  //   console.error('FUCK', err)
-  // });
   return process.env.REACT_APP_CLIENT_ID;
 };
 
@@ -154,11 +144,6 @@ export const fetchAccessTokens = async (code) => {
   const clientId = getClientId();
   const key = getApiKey();
 
-  // const data = {
-  //   code: code,
-  //   redirect_uri: redirect_URI,
-  //   grant_type: 'authorization_code',
-  // }
   const params = new URLSearchParams();
   params.append("client_id", clientId);
   params.append("grant_type", "authorization_code");

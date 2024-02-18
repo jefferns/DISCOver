@@ -9,7 +9,6 @@ export const getToken = () => {
   return token;
 };
 
-
 export function useTraceUpdate(props) {
   // https://stackoverflow.com/questions/41004631/trace-why-a-react-component-is-re-rendering
   const prev = useRef(props);
@@ -25,4 +24,25 @@ export function useTraceUpdate(props) {
     }
     prev.current = props;
   });
+}
+
+export const isSome = (option) => {
+  if (
+    option ||
+    typeof option === String ||
+    typeof option === Number ||
+    typeof option === Boolean
+    ) return true;
+  return false;
+};
+
+export const isNone = (option) => {
+  if (isSome(option)) return false;
+  return true;
+};
+
+export const getRedirectURL = () => {
+  const hostname = window.location.hostname;
+  if (hostname.includes('localhost')) return process.env.LOCAL_REDIRECT;
+  return process.env.PROD_REDIRECT;
 }
