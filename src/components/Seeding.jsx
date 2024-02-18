@@ -73,6 +73,11 @@ const Seeding = ({
   }, [seedWithTopItems, seedType, settings]);
 
   useEffect(() => {
+    if (!seeds.length) return;
+    setHasLoaded(false);
+  }, [seeds]);
+
+  useEffect(() => {
     if (loadingRecs || hasLoaded) return;
     if (!seeds.length) return;
     loadRecommendations();

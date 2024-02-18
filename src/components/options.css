@@ -5,8 +5,8 @@
     margin: 1px 3px;
     overflow: hidden;
     text-overflow: ellipsis;
+    cursor: pointer;
     &:hover {
-      cursor: pointer;
       background-color: #c1ccc3;
     }
   }

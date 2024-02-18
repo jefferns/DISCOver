@@ -2,9 +2,12 @@
   border-bottom: 1px solid black;
   padding: 2px 10px;
   text-align: left;
+  width: 100%;
 }
 .title {
   font-size: 12pt;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .artist {
   font-size: 10pt;

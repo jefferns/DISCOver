@@ -3,6 +3,7 @@ import { useEffect, useRef } from "react";
 export const getToken = () => {
   const token = window.localStorage.getItem('DISCOvery_token');
   if (!token) {
+    alert('Session expired: Try reloading or clearing cache');
     console.error('No token found!');
     return '';
   }
@@ -56,4 +57,12 @@ export function debounce(cb, delay = 1000) {
       cb(...args)
     }, delay)
   }
+}
+
+export const getAccessCode = () => {
+  const queryString = window.location.search;
+  if(!queryString) return;
+  const urlParams = new URLSearchParams(queryString);
+  const code_param = urlParams.get('code');
+  return code_param;
 }

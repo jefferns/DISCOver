@@ -49,7 +49,7 @@ function Player({
     setIsDragging(false);
     if(imgRef.current.style.transform) imgRef.current.style.removeProperty('transform');
     if(wrapperRef.current.style.boxShadow) wrapperRef.current.style.removeProperty('box-shadow');
-    if(Math.abs(event.clientX - startPos.x ) < 30) return;
+    if(Math.abs(event.clientX - startPos.x ) < 50) return;
     const decision = event.clientX - startPos.x > 0 ? 'right' : 'left';
     handleDrop(decision);
   }, [setIsDragging, handleDrop, startPos]);
@@ -77,9 +77,9 @@ function Player({
     document.getElementById('album-art').addEventListener('drag', handleMouseMove);
     document.getElementById('album-art').addEventListener('dragend', handleMouseUp);
     return () => {
-      document.getElementById('album-art').removeEventListener('dragstart', handleMouseDown);
-      document.getElementById('album-art').removeEventListener('drag', handleMouseMove);
-      document.getElementById('album-art').removeEventListener('dragend', handleMouseUp);
+      document.getElementById('album-art')?.removeEventListener('dragstart', handleMouseDown);
+      document.getElementById('album-art')?.removeEventListener('drag', handleMouseMove);
+      document.getElementById('album-art')?.removeEventListener('dragend', handleMouseUp);
     };
   }, [handleMouseUp, handleMouseMove,handleMouseDown]);
 

@@ -1,4 +1,4 @@
-import { getRedirectURL, getToken } from './helpers';
+import { getAccessCode, getRedirectURL, getToken, isSome } from './helpers';
 
 const URL = 'https://api.spotify.com/v1';
 const API_URL = 'https://accounts.spotify.com/api';
@@ -72,7 +72,12 @@ export const getTopItems = async (type, time_range='medium_term', limit=5) => {
   //https://developer.spotify.com/documentation/web-api/reference/#/operations/get-users-top-artists-and-tracks
   // type === 'artists' | 'tracks'
   // time_range === 'short_term' | 'medium_term' | 'long_term'
-  return apiGet(`/me/top/${type}?limit=${limit}&time_range=${time_range}`);
+  const response = await apiGet(`/me/top/${type}?limit=${limit}&time_range=${time_range}`);
+
+  if (response.status === 401) {
+    refreshToken();
+  };
+  return response;
 };
 
 export const getMe = async () => {
@@ -159,4 +164,46 @@ export const fetchAccessTokens = async (code) => {
   });
 
   return response;
-}
+};
+
+const refreshToken = async () => {
+  const refreshToken = localStorage.getItem('refresh_token');
+  if (!refreshToken) {
+    const code = getAccessCode();
+    loadToken(code);
+    return;
+  };
+
+  const clientId = getClientId();
+  const key = getApiKey();
+
+  const params = new URLSearchParams();
+  params.append("client_id", clientId);
+  params.append("grant_type", "refresh_token");
+  params.append("refresh_token", refreshToken);
+
+  const response = await fetch(API_URL + '/token', {
+    method: 'POST',
+    body: params,
+    headers: {
+      'Authorization': 'Basic ' + window.btoa(clientId + ':' + key),
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+  });
+  window.localStorage.setItem('DISCOvery_token', response.access_token);
+  window.localStorage.setItem('expires_in', response.expires_in);
+  window.localStorage.setItem('refresh_token', response.refresh_token);
+};
+
+
+export const loadToken = async (code) => {
+  fetchAccessTokens(code)
+  .then(response => response.json())
+  .then(response => {
+    if(!response.access_token) return response;
+    window.localStorage.setItem('DISCOvery_token', response.access_token);
+    window.localStorage.setItem('expires_in', response.expires_in);
+    window.localStorage.setItem('refresh_token', response.refresh_token);
+    return response;
+  });
+};

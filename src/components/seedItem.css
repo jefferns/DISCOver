@@ -8,7 +8,7 @@
   margin: 5px auto;
   background-color: #EEEEEE;
   filter: drop-shadow(5px 3px);
-  cursor: grab;
+  /* cursor: grab; */
 
   .seed-content {
     display: flex;
@@ -37,6 +37,8 @@
       .song-main {
         flex-grow: 1;
         font-size: 1.5em;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
       .song-secondary {
         flex-grow: 1;

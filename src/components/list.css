@@ -4,6 +4,7 @@
   background-color: white;
   border: 5px solid rgb(0, 66, 0);
   border-radius: 15px;
+  /* overflow: hidden; */
   margin: 2%;
 }
 .list-container > h3{
@@ -18,5 +19,7 @@
   overflow-y: scroll;
   overflow-x: hidden;
   white-space: nowrap;
-  height: calc(94%);
+  height: 94%;
+  width: 100%;
+  
 }
