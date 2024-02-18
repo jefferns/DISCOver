@@ -1,5 +1,6 @@
 import React from 'react';
 import { getAuthUrl } from '../extras/api';
+import './login.css';
 
 
 // export const fetchAccessTokens = async () => {
@@ -26,12 +27,14 @@ export default function Login() {
   };
 
   return (
-    <div>
-      <img alt="DISCOvery logo" src="logo_transparent.png" style={{height: '100px'}}/>
-      <h1>Welcome!</h1>
-      <button className='btn' type='button' onClick={ handleLogin }>
-        Log in with Spotify
-      </button>
+    <div className="welcome">
+      <div className='content'>
+        <img alt="DISCOvery logo" src="logo_transparent.png" style={{height: '150px'}}/>
+        <h1>Welcome!</h1>
+        <button className='btn' type='button' onClick={ handleLogin }>
+          Log in with Spotify
+        </button>
+      </div>
     </div>
   )
 }
