@@ -43,6 +43,6 @@ export const isNone = (option) => {
 
 export const getRedirectURL = () => {
   const hostname = window.location.hostname;
-  if (hostname.includes('localhost')) return process.env.LOCAL_REDIRECT;
-  return process.env.PROD_REDIRECT;
+  if (hostname.includes('localhost')) return 'http://localhost:3000';
+  return 'https://jefferis.dev';
 }
