@@ -1,16 +1,20 @@
 import React from 'react';
 import './banner.css';
+import { useNavigate , useLocation } from 'react-router-dom';
 
 
 const Banner = ({
-  discoveryMode,
   showSettings,
-  setDiscoveryMode,
   setShowSettings
 }) => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { pathname } = location;
+
+  const showBackArrow = pathname === '/discovery';
 
   const handleBack = () => {
-    setDiscoveryMode(false);
+    navigate('/dashboard');
   };
 
   const toggleSettings = () => {
@@ -20,7 +24,7 @@ const Banner = ({
   return (
     <div className="banner">
       <div className="banner-buttons" id='settings'>
-        {discoveryMode &&
+        {showBackArrow &&
           <div className='banner-btn' onClick={handleBack} id='back'>
             <svg xmlns="http://www.w3.org/2000/svg" className="icon" width="20" height="20" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#ffffff" fill="none" strokeLinecap="round" strokeLinejoin="round">
               <path stroke="none" d="M0 0h24v24H0z" fill="none"/>

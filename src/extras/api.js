@@ -1,4 +1,4 @@
-import { getAccessCode, getRedirectURL, getToken, isSome } from './helpers';
+import { clearLocalStorage, getAccessCode, getRedirectURL, getToken } from './helpers';
 
 const URL = 'https://api.spotify.com/v1';
 const API_URL = 'https://accounts.spotify.com/api';
@@ -14,6 +14,10 @@ const apiGet = async (path, options = {}) => {
       ...options,
     }
   });
+
+  if (response.status === 401) {
+    window.location.replace('')
+  };
   return response;
 };
 
@@ -28,6 +32,9 @@ const apiPut = async (path, body = '', options = {}) => {
       ...options,
     }
   });
+  // if (response.status === 401) {
+  //   refreshToken();
+  // };
   return response;
 };
 
@@ -42,6 +49,9 @@ const apiPost = async (path, body = '', options = {}) => {
       ...options,
     }
   });
+  // if (response.status === 401) {
+  //   refreshToken();
+  // };
   return response;
 };
 
@@ -73,10 +83,6 @@ export const getTopItems = async (type, time_range='medium_term', limit=5) => {
   // type === 'artists' | 'tracks'
   // time_range === 'short_term' | 'medium_term' | 'long_term'
   const response = await apiGet(`/me/top/${type}?limit=${limit}&time_range=${time_range}`);
-
-  if (response.status === 401) {
-    refreshToken();
-  };
   return response;
 };
 
@@ -162,25 +168,18 @@ export const fetchAccessTokens = async (code) => {
       'Content-Type': 'application/x-www-form-urlencoded',
     },
   });
-
   return response;
 };
 
-const refreshToken = async () => {
-  const refreshToken = localStorage.getItem('refresh_token');
-  if (!refreshToken) {
-    const code = getAccessCode();
-    loadToken(code);
-    return;
-  };
-
+export const refreshToken = async (token) => {
   const clientId = getClientId();
   const key = getApiKey();
 
-  const params = new URLSearchParams();
-  params.append("client_id", clientId);
-  params.append("grant_type", "refresh_token");
-  params.append("refresh_token", refreshToken);
+  const params = new URLSearchParams({
+    grant_type: 'refresh_token',
+    refresh_token: token,
+    client_id: clientId
+  });
 
   const response = await fetch(API_URL + '/token', {
     method: 'POST',
@@ -190,19 +189,23 @@ const refreshToken = async () => {
       'Content-Type': 'application/x-www-form-urlencoded',
     },
   });
+  if (response.status !== 200) {
+    console.error('Error refreshing Access Token: ', response);
+    return;
+  }
   window.localStorage.setItem('DISCOvery_token', response.access_token);
   window.localStorage.setItem('expires_in', response.expires_in);
   window.localStorage.setItem('refresh_token', response.refresh_token);
 };
-
 
 export const loadToken = async (code) => {
   fetchAccessTokens(code)
   .then(response => response.json())
   .then(response => {
     if(!response.access_token) return response;
+    const expiresTime = Date.now() + response.expires_in * 1000;
+    window.localStorage.setItem('expires_time', expiresTime);
     window.localStorage.setItem('DISCOvery_token', response.access_token);
-    window.localStorage.setItem('expires_in', response.expires_in);
     window.localStorage.setItem('refresh_token', response.refresh_token);
     return response;
   });

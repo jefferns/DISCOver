@@ -4,7 +4,9 @@
   align-items: center;
   padding: 20px 0px;
   /* width: 350px; */
-  width: 100%;
+  /* width: 100%; */
+  flex-grow: 2;
+  max-width: 800px;
   /* margin: 0 10%; */
   color: rgb(0, 66, 0);
 

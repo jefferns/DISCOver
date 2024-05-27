@@ -8,47 +8,44 @@
   margin: 5px auto;
   background-color: #EEEEEE;
   filter: drop-shadow(5px 3px);
-  /* cursor: grab; */
 
-  .seed-content {
+  .album-art {
     display: flex;
-    width: 100%;
-    .album-art {
-      height: 8vh;
-      margin: 4px 4px;
-      display: flex;
-      img {
-        border-radius: 10px;
-        user-select: none;
-        -webkit-user-drag: none;
-      }
-    }
-    .seed-text {
-      padding-left: 8px;
-      margin: auto 0;
-      flex-grow: 1;
-      user-select: none;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      overflow-x: hidden;
-      text-align: left;
-
-
-      .song-main {
-        flex-grow: 1;
-        font-size: 1.5em;
-        overflow: hidden;
-        text-overflow: ellipsis;
-      }
-      .song-secondary {
-        flex-grow: 1;
-        font-size: 1.0em;
-      }
+    justify-content: center;
+    img {
+      max-width: 70px;
+      border-radius: 10px;
+      padding: 5px;
     }
   }
+
+  .seed-text {
+    flex-grow: 2;
+    overflow: hidden;
+    padding-left: 5px;
+    justify-content: center;
+    /* text-wrap: nowrap;
+    text-overflow: ellipsis; */
+    width: 100%;
+    .song-main {
+      font-size: 1.5rem;
+      font-weight: 600;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      text-wrap: nowrap;
+    }
+    .song-secondary {
+      font-size: 1.2rem;
+      font-weight: 500;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      text-wrap: nowrap;
+    }
+  }
+
   .remove-seed {
     align-self: flex-end;
-    flex-grow: 1;
     height: 100%;
+    width: 50px;
   }
 }

@@ -8,7 +8,6 @@ const List = ({
   items,
   show
 }) => {
-
   // const getRecommendations = () => {
   //   if(!seeds.length) return;
   //   getRecommendations(token, seeds, seed_type)
@@ -29,8 +28,8 @@ const List = ({
       ? <div className="list-container">
           <h3>{title}: </h3>
           <div className='list-body'>
-            {items.length ?
-              items.map(recommendation => <ListItem data={recommendation} key={recommendation.id}/>)
+            {items.length > 0 
+              ? items.map(recommendation => <ListItem data={recommendation} key={recommendation.id}/>)
               : <p>No matches yet</p>
             }
           </div>

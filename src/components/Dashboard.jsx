@@ -1,44 +1,76 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import Seeding from './Seeding';
 import List from './List';
-import Discovery from './Discovery';
 import Banner from './Banner';
 import SettingsPanel from './Settings/SettingsPanel';
 import './dashboard.css';
+import { clearLocalStorage, isTokenExpired } from '../extras/helpers';
+import { useNavigate } from 'react-router-dom';
+import { loadToken, refreshToken } from '../extras/api';
 
 
-export default function Dashboard() {
-  const [seeds, setSeeds] = useState([]);
-  const [seedType, setSeedType] = useState('track');
-  const [discoveryMode, setDiscoveryMode] = useState(false);
-  const [displayRecs, setDisplayingRecs] = useState(false);
-  const [recommendations, setRecommendations] = useState([]);
-  const [showSettings, setShowSettings] = useState(false);
-  const [currentTrack, setCurrentTrack] = useState(
-    {
-      preview_url: '',
-      name: '',
-      album: { images: [{url:''}]},
-      artists: [{name:''}]
+export default function Dashboard({
+  displayRecs, 
+  recommendations,
+  seeds,
+  seedType, 
+  setCurrentTrack, 
+  setDisplayingRecs,
+  setRecommendations,
+  setSeedType, 
+  setSeeds, 
+  setSettings,
+  setShowSettings, 
+  settings,
+  showSettings,
+}) {
+  const navigate = useNavigate();
+
+  const getTokens = useCallback(() => {
+    const code = localStorage.getItem('access_code');
+    if (!code) navigate('/login');
+    try {
+      loadToken(code);
+    } catch (error) {
+      console.error('Error fetching access token: ', error);
+    };
+  }, [navigate]);
+
+  const handleRefreshToken = useCallback(() => {
+    const refresh = localStorage.getItem('refresh_token');
+    if (refresh === "undefined") {
+      console.error('Error: Refresh Token not found in Storage');
+      clearLocalStorage();
+      navigate('/login');
+    };
+    try {
+      refreshToken(refresh);
+    } catch (error) {
+      console.error('Error fetching access token: ', error);
+    };
+  }, [navigate]);
+
+  useEffect(()=>{
+    // Do we have a token? If not, get them
+    const token = localStorage.getItem('DISCOvery_token');
+    if (!token) return getTokens();
+
+    // We have a token, is it expired?
+    const expired = isTokenExpired();
+    if (expired) {
+      // if it's expired, refresh it
+      handleRefreshToken();
     }
-  );
-  const [settings, setSettings] = useState(
-    {
-      time_range: 'medium_term',   //'short_term' | 'medium_term' | 'long_term'
-      volume: '30',
-    }
-  );
+  }, [getTokens, handleRefreshToken, navigate]);
 
   useEffect(()=>{
     if(!recommendations.length) setDisplayingRecs(false);
-  }, [recommendations]);
+  }, [setDisplayingRecs, recommendations]);
 
 
   return (
     <>
       <Banner 
-        discoveryMode={discoveryMode}
-        setDiscoveryMode={setDiscoveryMode}
         showSettings={showSettings}
         setShowSettings={setShowSettings}
       />
@@ -48,36 +80,26 @@ export default function Dashboard() {
         setSettings={setSettings}
         setShowSettings={setShowSettings}
       />
-      {discoveryMode
-      ? <Discovery
-          currentTrack={currentTrack}
-          recommendations={recommendations}
-          settings={settings}
-          setSettings={setSettings}
-          setCurrentTrack={setCurrentTrack}
-        />
-      : <div className="dashboard-container">
-          <div className='upper-dash'>
-            <Seeding
-              displayRecs={displayRecs}
-              seeds={seeds}
-              settings={settings}
-              seedType={seedType}
-              setSeeds={setSeeds}
-              setSeedType={setSeedType}
-              setDiscoveryMode={setDiscoveryMode}
-              setCurrentTrack={setCurrentTrack}
-              setDisplayingRecs={setDisplayingRecs}
-              setRecommendations={setRecommendations}
-            />
-            <List
-              title={'Recommendations'}
-              items={recommendations}
-              show={displayRecs}
-            />
-          </div>
+      <div className="dashboard-container">
+        <div className='upper-dash'>
+          <Seeding
+            displayRecs={displayRecs}
+            seeds={seeds}
+            settings={settings}
+            seedType={seedType}
+            setSeeds={setSeeds}
+            setSeedType={setSeedType}
+            setCurrentTrack={setCurrentTrack}
+            setDisplayingRecs={setDisplayingRecs}
+            setRecommendations={setRecommendations}
+          />
+          <List
+            title={'Recommendations'}
+            items={recommendations}
+            show={displayRecs}
+          />
         </div>
-      }
+      </div>
     </>
   );
 }

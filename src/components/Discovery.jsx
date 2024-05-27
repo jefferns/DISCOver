@@ -1,25 +1,33 @@
-import React, { useEffect, useRef, useState, useCallback, useMemo } from 'react';
-import { addTracksToPlaylist, createPlaylist, getMe, getRecommendations } from '../extras/api';
+import React, { useCallback, useEffect, useLayoutEffect, useState } from 'react';
+import { addTracksToPlaylist, createPlaylist, getMe } from '../extras/api';
 import Player from './Player';
 import List from './List';
 import './discovery.css';
+import { isNone, pruneTrack } from '../extras/helpers';
+import Banner from './Banner';
+import { useNavigate } from 'react-router-dom';
+import SettingsPanel from './Settings/SettingsPanel';
 
 
 const Discovery = ({
   currentTrack,
   recommendations,
   settings,
-  setSettings,
   setCurrentTrack,
+  setSettings,
+  setShowSettings,
+  showSettings,
 }) => {
   const [matches, setMatches] = useState([]);
   const [id, setId] = useState('');
   const [playlistURL, setPlaylistURL] = useState('');
   const [index, setIndex] = useState(0);
 
-  const addToMatches = (track) => {
-    setMatches(currentMatches => [...currentMatches, track]);
-  };
+  const addToMatches = useCallback((track) => {
+    const prunedTrack = pruneTrack(track);
+    const clone = [prunedTrack, ...matches];
+    setMatches(clone);
+  }, [matches])
 
   const addMatchesToPlaylist = (id) => {
     let uris = []
@@ -60,42 +68,68 @@ const Discovery = ({
   }, []);
 
   useEffect(() => {
+
+    // const storedMatches = localStorage.getItem('DISCOvery_matches');
+    // if (isNone(storedMatches)) return;
+    // const matchList = JSON.parse(storedMatches);
+    // setMatches(_ => [matchList]);
+  }, []);
+
+  useEffect(() => {
+
+    // save matches every time you like a new song
+    if (isNone(matches)) return;
+    // localStorage.setItem('DISCOvery_matches', JSON.stringify(matches));
+  }, [matches]);
+
+  useLayoutEffect(() => {
     setCurrentTrack(recommendations[index]);
   }, [index, recommendations, setCurrentTrack]);
 
   return (
-    <div className="discovery-wrapper">
-      <div className="discovery-container">
-        <div className="left">
-          <Player
-            addToMatches={addToMatches}
-            track={currentTrack}
-            settings={settings}
-            setSettings={setSettings}
-            setIndex={setIndex}
-          />
-        </div>
-        <div className="right">
-          <List
-            title={'Matches'}
-            items={matches}
-            show={true}
-          />
-          {matches.length
-            ? <div className='export-btns-wrapper'>
-              <button className="export-btn" onClick={handleClick}>
-                <div className="text-wrapper">
-                  <div className="export-text">
-                    Export Playlist 
+    <>
+      <Banner 
+        showSettings={showSettings}
+        setShowSettings={setShowSettings}
+      />
+      <SettingsPanel
+        show={showSettings}
+        settings={settings}
+        setSettings={setSettings}
+        setShowSettings={setShowSettings}
+      />
+      <div className="discovery-wrapper">
+        <div className="discovery-container">
+          <div className="left">
+            <Player
+              addToMatches={addToMatches}
+              track={currentTrack}
+              settings={settings}
+              setSettings={setSettings}
+              setIndex={setIndex}
+            />
+          </div>
+          <div className="right">
+            <List
+              title={'Matches'}
+              items={matches}
+              show={true}
+            />
+            {matches.length > 0
+              ? <div className='export-btns-wrapper'>
+                <button className="export-btn" onClick={handleClick}>
+                  <div className="text-wrapper">
+                    <div className="export-text">
+                      Export Playlist 
+                    </div>
+                    <svg xmlns="http://www.w3.org/2000/svg" style={{'margin':'auto', 'marginLeft':'0'}} width="20" height="20" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#ffffff" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                      <path d="M14 3v4a1 1 0 0 0 1 1h4" />
+                      <path d="M11.5 21h-4.5a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v5m-5 6h7m-3 -3l3 3l-3 3" />
+                    </svg>
                   </div>
-                  <svg xmlns="http://www.w3.org/2000/svg" style={{'margin':'auto', 'marginLeft':'0'}} width="20" height="20" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#ffffff" fill="none" strokeLinecap="round" strokeLinejoin="round">
-                    <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-                    <path d="M14 3v4a1 1 0 0 0 1 1h4" />
-                    <path d="M11.5 21h-4.5a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v5m-5 6h7m-3 -3l3 3l-3 3" />
-                  </svg>
-                </div>
-              </button>
-              {playlistURL ? 
+                </button>
+                {playlistURL &&
                   <button className="copy-btn" onClick={handleCopy}>
                     <div className="text-wrapper">
                       <div className="export-text">
@@ -107,14 +141,14 @@ const Discovery = ({
                       </svg>
                     </div>
                   </button>
-                : null
                 }
-            </div>
-            : null
-          }
+              </div>
+              : null
+            }
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
  

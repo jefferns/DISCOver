@@ -33,6 +33,7 @@ function Player({
     if(!wrapperRef) return;
 
     var deltaX = event.clientX - startPos.x;
+    console.info('deltaX', [deltaX, event]);
     var angle = deltaX / 10;
     const scale = getRingScale(deltaX);
     const color = deltaX > 1 ? 'green' : 'red';
@@ -55,7 +56,6 @@ function Player({
   }, [setIsDragging, handleDrop, startPos]);
 
   useEffect(()=>{
-
     let player = document.getElementById('player');
     let source = document.getElementById('source');
     source.src = track.preview_url;
@@ -74,11 +74,11 @@ function Player({
   useEffect(()=>{
     // Add event listeners for handling drag/tilt animations
     document.getElementById('album-art').addEventListener('dragstart', handleMouseDown);
-    document.getElementById('album-art').addEventListener('drag', handleMouseMove);
+    document.addEventListener('dragover', handleMouseMove);
     document.getElementById('album-art').addEventListener('dragend', handleMouseUp);
     return () => {
       document.getElementById('album-art')?.removeEventListener('dragstart', handleMouseDown);
-      document.getElementById('album-art')?.removeEventListener('drag', handleMouseMove);
+      document.removeEventListener('drag', handleMouseMove);
       document.getElementById('album-art')?.removeEventListener('dragend', handleMouseUp);
     };
   }, [handleMouseUp, handleMouseMove,handleMouseDown]);

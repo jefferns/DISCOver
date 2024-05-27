@@ -9,15 +9,27 @@
   /* margin-top: 5%; */
   display: flex;
   flex-direction: row; 
+  flex-wrap: wrap;
   justify-content: center;
   border: 7px solid rgb(0, 66, 0);
   border-radius: 60px;
   background-color: white;
-}
-.lower-dash{
-  margin: 30px auto;
-  justify-content: center;
-}
-.dash-item{
-  padding: 10px 40px;
+  overflow-y: scroll;
+
+  .list-container{
+    width: 350px;
+    min-width: 200px;
+    max-height: 90%;
+    /* overflow-y: scroll; */
+    overflow-x: hidden;
+    white-space: nowrap;
+    background-color: rgb(236, 236, 236);
+    border:1px solid rgb(134, 134, 134);
+  }
+  .list-container > h3{
+    margin: 0;
+    padding: 5px;
+    position: sticky;
+    top: 0;
+  }
 }

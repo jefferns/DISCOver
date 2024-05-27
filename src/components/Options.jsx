@@ -8,7 +8,6 @@ const Options = ({
 }) => {
   return ( 
     <optgroup  className="options" label={placeholderText}>
-      {/* <option key='default' value='default' disabled={true}> {placeholderText} </option> */}
       {options.map(option => (
         <option 
           className="option-row"

@@ -15,7 +15,6 @@ const Seeding = ({
   setSeeds,
   settings,
   setSeedType,
-  setDiscoveryMode,
   setCurrentTrack, 
   setDisplayingRecs, 
   setRecommendations 
@@ -116,10 +115,7 @@ const Seeding = ({
           seeds={seeds}
           setSeeds={setSeeds}
         />
-        {displayRecs ?
-          <GoButton setDiscoveryMode={setDiscoveryMode}/>
-          : null
-        }        
+        {displayRecs && <GoButton/>}        
       </div>
     </>
   );

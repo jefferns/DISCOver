@@ -5,6 +5,7 @@ export const getToken = () => {
   if (!token) {
     alert('Session expired: Try reloading or clearing cache');
     console.error('No token found!');
+    // localStorage.clear();
     return '';
   }
   return token;
@@ -44,9 +45,9 @@ export const isNone = (option) => {
 
 export const getRedirectURL = () => {
   const hostname = window.location.hostname;
-  if (hostname.includes('localhost')) return 'http://localhost:3000';
-  return 'https://jefferis.dev';
-}
+  if (hostname.includes('localhost')) return 'http://localhost:3000/token';
+  return 'https://jefferis.dev/token';
+};
 
 export function debounce(cb, delay = 1000) {
   let timeout
@@ -57,12 +58,27 @@ export function debounce(cb, delay = 1000) {
       cb(...args)
     }, delay)
   }
-}
+};
 
 export const getAccessCode = () => {
-  const queryString = window.location.search;
-  if(!queryString) return;
-  const urlParams = new URLSearchParams(queryString);
-  const code_param = urlParams.get('code');
-  return code_param;
-}
+  const code = localStorage.getItem('access_code');
+  if (!code) alert('Access Code not found!');
+  return code;
+};
+
+export const clearLocalStorage = () => {
+  localStorage.clear();
+};
+
+export const pruneTrack = (track) => {
+  const { artists, id, name, uri } = track;
+  return { artists, id, name, uri };
+};
+
+export const isTokenExpired = () => {
+  const now = Date.now();
+  const expiredTime = localStorage.getItem('expires_time');
+  if (!expiredTime) return true;
+  if (now > expiredTime) return true;
+  return false;
+};

@@ -1,9 +1,12 @@
+import { useNavigate } from 'react-router-dom';
 import './goButton.css';
 
-const GoButton = ({setDiscoveryMode}) => {
+const GoButton = () => {
+  const navigate = useNavigate();
   const handleClick = () => {
-    setDiscoveryMode(true);
-  }
+    navigate('/discovery');
+  };
+
   return (
     <div className="go-wrapper">
       <button type="button" className='btn' onClick={handleClick}>

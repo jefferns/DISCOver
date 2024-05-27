@@ -3,6 +3,8 @@
 
   button {
     width: 10vw;
+    min-width: 110px;
+    text-wrap: nowrap;
     height: 6vh;
     border-radius: 10px;
     font-size: 1.2rem;
