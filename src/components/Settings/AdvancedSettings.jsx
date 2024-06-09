@@ -97,6 +97,7 @@ export const AdvancedSettings = () => {
   ));
 
   return ( 
+    false &&
     <div className="advanced-settings">
       {parameterSliders}
       <select name='add-parameter' id='add-parameter' defaultValue={'add-new'} onChange={addNewParameter}>

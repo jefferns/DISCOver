@@ -1,4 +1,4 @@
-import { clearLocalStorage, getAccessCode, getRedirectURL, getToken } from './helpers';
+import { getRedirectURL, getToken } from './helpers';
 
 const URL = 'https://api.spotify.com/v1';
 const API_URL = 'https://accounts.spotify.com/api';
