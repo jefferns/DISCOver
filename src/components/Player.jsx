@@ -30,10 +30,9 @@ function Player({
   const handleMouseMove = useCallback((event) => {
     if(!isDragging) return;
     if(!imgRef) return;
-    if(!wrapperRef) return;
+    if(!wrapperRef.current) return;
 
     var deltaX = event.clientX - startPos.x;
-    console.info('deltaX', [deltaX, event]);
     var angle = deltaX / 10;
     const scale = getRingScale(deltaX);
     const color = deltaX > 1 ? 'green' : 'red';
@@ -74,14 +73,14 @@ function Player({
   useEffect(()=>{
     // Add event listeners for handling drag/tilt animations
     document.getElementById('album-art').addEventListener('dragstart', handleMouseDown);
-    document.addEventListener('dragover', handleMouseMove);
+    document.getElementById('album-art').addEventListener('dragover', handleMouseMove);
     document.getElementById('album-art').addEventListener('dragend', handleMouseUp);
     return () => {
       document.getElementById('album-art')?.removeEventListener('dragstart', handleMouseDown);
-      document.removeEventListener('drag', handleMouseMove);
+      document.getElementById('album-art')?.removeEventListener('drag', handleMouseMove);
       document.getElementById('album-art')?.removeEventListener('dragend', handleMouseUp);
     };
-  }, [handleMouseUp, handleMouseMove,handleMouseDown]);
+  }, [handleMouseUp, handleMouseMove, handleMouseDown]);
 
 
   return (

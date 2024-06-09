@@ -5,6 +5,7 @@ import Login from './components/Login'
 import Dashboard from './components/Dashboard';
 import Discovery from './components/Discovery';
 import AccessToken from './components/AccessToken';
+import RestoreSession from './components/RestoreSession';
 
 const emptyTrack = {
   preview_url: '',
@@ -16,6 +17,7 @@ const emptyTrack = {
 const defaultSettings = {
   time_range: 'medium_term',   //'short_term' | 'medium_term' | 'long_term'
   volume: '30',
+  saveMatches: true,
 };
 
 function App() {
@@ -63,6 +65,7 @@ function App() {
 
           </Route>
           <Route path='/token' element={<AccessToken/>}/>
+          <Route exact path='/' element={<RestoreSession/>}/>          
           <Route path="*" element={<Navigate to="/dashboard" replace/>} />
         </Routes>
       </div>

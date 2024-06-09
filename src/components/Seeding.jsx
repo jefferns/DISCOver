@@ -19,7 +19,6 @@ const Seeding = ({
   setDisplayingRecs, 
   setRecommendations 
 }) => {
-  // const [searchResults, setSearchResults] = useState([]);
   const [loadingRecs, setLoadingRecs] = useState(false);
   const [hasLoaded, setHasLoaded] = useState(false);
 
@@ -74,7 +73,7 @@ const Seeding = ({
   useEffect(() => {
     if (!seeds.length) return;
     setHasLoaded(false);
-  }, [seeds]);
+  }, [seeds.length]);
 
   useEffect(() => {
     if (loadingRecs || hasLoaded) return;

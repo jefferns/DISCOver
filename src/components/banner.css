@@ -6,6 +6,8 @@
   width: 100px;
   background-color: rgb(0, 66, 0);
   border-bottom-right-radius: 20px;
+  border-bottom: 2px solid white;
+  border-right: 2px solid white;
 }
 .banner-buttons {
   width: 100%;

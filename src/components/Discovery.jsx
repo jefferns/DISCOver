@@ -5,7 +5,6 @@ import List from './List';
 import './discovery.css';
 import { isNone, pruneTrack } from '../extras/helpers';
 import Banner from './Banner';
-import { useNavigate } from 'react-router-dom';
 import SettingsPanel from './Settings/SettingsPanel';
 
 
@@ -19,7 +18,6 @@ const Discovery = ({
   showSettings,
 }) => {
   const [matches, setMatches] = useState([]);
-  const [id, setId] = useState('');
   const [playlistURL, setPlaylistURL] = useState('');
   const [index, setIndex] = useState(0);
 
@@ -38,49 +36,49 @@ const Discovery = ({
   };
 
   const handleClick = () => {
-    if(!id) return;
-    // create playlist
-    createPlaylist(id, 'DISCOvery')
-    .then(response => response.json())
-    .then(response => {
-      let playlist_id = response.id;
-      if(!playlist_id) return;
-      if(!matches) return;
-      // add each song to the new playlist
-      addMatchesToPlaylist(playlist_id);
-      setPlaylistURL(response.external_urls.spotify);
-      alert('Successfully exported playlist!');
-    });
-  };
-
-  const handleCopy = () => {
-    if(!playlistURL) return;
-    navigator.clipboard.writeText(playlistURL);
-    alert('Copied the text: ' + playlistURL);
-  }
-
-  useEffect(() => {
     getMe()
     .then(response => response.json())
     .then(response => {
-      setId(response.id);
-    })
-  }, []);
+      const id = response.id;
+
+      // create playlist
+      createPlaylist(id, 'DISCOvery')
+      .then(response => response.json())
+      .then(response => {
+        let playlist_id = response.id;
+        if(!playlist_id) return;
+        if(!matches) return;
+        // add each song to the new playlist
+        addMatchesToPlaylist(playlist_id);
+        setPlaylistURL(response.external_urls.spotify);
+        alert('Successfully exported playlist!');
+      });
+    });
+  };
+
+  const handleCopy = useCallback(() => {
+    if(!playlistURL) return;
+    navigator.clipboard.writeText(playlistURL);
+    alert('Copied the text: ' + playlistURL);
+  }, [playlistURL]);
 
   useEffect(() => {
-
-    // const storedMatches = localStorage.getItem('DISCOvery_matches');
-    // if (isNone(storedMatches)) return;
-    // const matchList = JSON.parse(storedMatches);
-    // setMatches(_ => [matchList]);
-  }, []);
+    // if not saving matches, don't load from local storage
+    if (!settings.saveMatches) {
+      localStorage.clear('matches');
+      return setMatches(_ => []);
+    }
+    const storedMatches = localStorage.getItem('matches');
+    if (isNone(storedMatches)) return;
+    const matchList = JSON.parse(storedMatches);
+    setMatches(_ => matchList);
+  }, [settings.saveMatches]);
 
   useEffect(() => {
-
     // save matches every time you like a new song
-    if (isNone(matches)) return;
-    // localStorage.setItem('DISCOvery_matches', JSON.stringify(matches));
-  }, [matches]);
+    if (!matches.length || !settings.saveMatches) return;
+    localStorage.setItem('matches', JSON.stringify(matches));
+  }, [matches.length, settings.saveMatches]);
 
   useLayoutEffect(() => {
     setCurrentTrack(recommendations[index]);

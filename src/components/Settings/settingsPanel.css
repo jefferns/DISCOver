@@ -13,19 +13,22 @@
   padding: 20px;
   z-index: 100;
 
-  .dropdown {
-    font-size: 1rem;
-    font-weight: 400;
-    margin-left: 10px;
-  }
-
   .setting-option {
     display: flex;
     padding: 10px 0;
 
+    .dropdown {
+      font-size: 1rem;
+      font-weight: 400;
+      margin-left: 10px;
+    }
+
     .slider {
       flex-shrink: 2;
     }
+  }
+  .advanced-settings {
+    
   }
 }
 

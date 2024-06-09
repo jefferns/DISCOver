@@ -22,19 +22,19 @@ const List = ({
 
 
   // {displayRecs ? <div style={{flexGrow: '1', maxWidth:'200px'}}/> : null }
+  console.info('items', [items, items.length]);
   return(
     <>
-      {show
-      ? <div className="list-container">
+      {show &&
+        <div className="list-container">
           <h3>{title}: </h3>
           <div className='list-body'>
             {items.length > 0 
-              ? items.map(recommendation => <ListItem data={recommendation} key={recommendation.id}/>)
+              ? items.map(item => <ListItem id={item.id} name={item.artists[0]?.name} title={item?.name}/>)
               : <p>No matches yet</p>
             }
           </div>
         </div>
-      : null
       }
     </>
   )

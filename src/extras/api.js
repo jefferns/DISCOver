@@ -151,7 +151,7 @@ export const getAuthUrl = () => {
 };
 
 export const fetchAccessTokens = async (code) => {
-  if(!code) return;
+  if(!code) return console.error('Error when fetching Access Token. No code provided.');
   const clientId = getClientId();
   const key = getApiKey();
 

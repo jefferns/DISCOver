@@ -1,14 +1,14 @@
 import './listItem.css';
 
 
-const ListItem = ({data}) => {
+const ListItem = ({id, name, title}) => {
   return (
-    <div className='list-item' key={data.id} id={data.id}>
+    <div className='list-item' key={id} id={id}>
       <div className="title">
-        {data?.name}
+        {title}
       </div>
       <div className="artist">
-        {data?.artists[0]?.name}
+        {name}
       </div>
     </div>
   );

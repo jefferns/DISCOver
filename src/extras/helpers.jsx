@@ -34,7 +34,7 @@ export const isSome = (option) => {
     typeof option === String ||
     typeof option === Number ||
     typeof option === Boolean
-    ) return true;
+  ) return true;
   return false;
 };
 

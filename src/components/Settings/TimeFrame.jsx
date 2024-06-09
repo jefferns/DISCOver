@@ -2,7 +2,7 @@ import DropDown from "../Dropdown";
 
 const TimeFrame = ({
   handleTimeChange, 
-  settings
+  value
 }) => {
   const terms = [
     {id: 'short_term', value: 'short_term', name: 'Short Term'}, 
@@ -11,18 +11,16 @@ const TimeFrame = ({
   ];
 
   return ( 
-    <div className="setting time-frame">
-      <div className='setting-option' id='time'>
-        Time: 
-        <DropDown 
-          defaultValue={settings.time_range}
-          onChange={handleTimeChange} 
-          options={terms}
-          title='time-range'
-        />
-      </div>
+    <div className='setting-option time-frame' id='time'>
+      Time: 
+      <DropDown 
+        value={value}
+        onChange={handleTimeChange} 
+        options={terms}
+        title='time-range'
+      />
     </div>
-   );
+  );
 }
  
 export default TimeFrame;

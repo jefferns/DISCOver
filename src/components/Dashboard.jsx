@@ -28,11 +28,13 @@ export default function Dashboard({
 
   const getTokens = useCallback(() => {
     const code = localStorage.getItem('access_code');
-    if (!code) navigate('/login');
+    if (!code) return navigate('/login');
     try {
       loadToken(code);
     } catch (error) {
       console.error('Error fetching access token: ', error);
+      clearLocalStorage();
+      return navigate('/login');
     };
   }, [navigate]);
 
