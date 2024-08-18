@@ -15,7 +15,7 @@ const List = ({
           <h3>{title}: </h3>
           <div className='list-body'>
             {items.length > 0 
-              ? items.map(item => <ListItem id={item.id} name={item.artists[0]?.name} title={item?.name}/>)
+              ? items.map(item => <ListItem id={item.id} name={item.artists[0]?.name} title={item?.name} key={item.id}/>)
               : <p>No matches yet</p>
             }
           </div>

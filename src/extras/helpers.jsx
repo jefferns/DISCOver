@@ -45,8 +45,8 @@ export const isNone = (option) => {
 
 export const getRedirectURL = () => {
   const hostname = window.location.hostname;
-  if (hostname.includes('localhost')) return 'http://localhost:3000/#/token';
-  return 'https://jefferis.dev/#/token';
+  if (hostname.includes('localhost')) return 'http://localhost:3000/token';
+  return 'https://jefferis.dev/token';
 };
 
 export function debounce(cb, delay = 1000) {

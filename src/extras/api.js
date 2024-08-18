@@ -134,16 +134,9 @@ export const addTracksToPlaylist = async (playlist_id, uris) => {
 
 export const getAuthUrl = () => {
   const scopes = [
-    // 'streaming',
     'playlist-modify-public',
     'playlist-modify-private',
-    // 'user-library-modify',
-    // 'user-modify-playback-state',
     'user-top-read',
-    'user-read-email',
-    // 'user-read-playback-state',
-    // 'user-read-private',
-    'user-read-currently-playing',
   ];
   const clientId = getClientId();
   const authUrl = `https://accounts.spotify.com/authorize?client_id=${clientId}&redirect_uri=${redirect_URI}&scope=${scopes.join('%20')}&response_type=code&show_dialog=true`;

@@ -74,6 +74,12 @@ const Discovery = ({
     setMatches(_ => matchList);
   }, [settings.saveMatches]);
 
+
+  const clearMatches = useCallback(() => {
+    localStorage.removeItem('matches');
+    setMatches([]);
+  }, []);
+
   useEffect(() => {
     // save matches every time you like a new song
     if (!matches.length || !settings.saveMatches) return;
@@ -81,6 +87,8 @@ const Discovery = ({
   }, [matches.length, settings.saveMatches]);
 
   useLayoutEffect(() => {
+    console.info(recommendations, index);
+    if (!recommendations[index]) return;
     setCurrentTrack(recommendations[index]);
   }, [index, recommendations, setCurrentTrack]);
 
@@ -99,13 +107,13 @@ const Discovery = ({
       <div className="discovery-wrapper">
         <div className="discovery-container">
           <div className="left">
-            <Player
+            {currentTrack && <Player
               addToMatches={addToMatches}
               track={currentTrack}
               settings={settings}
               setSettings={setSettings}
               setIndex={setIndex}
-            />
+            />}
           </div>
           <div className="right">
             <List
@@ -114,13 +122,13 @@ const Discovery = ({
               show={true}
             />
             {matches.length > 0
-              ? <div className='export-btns-wrapper'>
-                <button className="export-btn" onClick={handleClick}>
+              ? <div className='matches-btns-wrapper'>
+                <button className="btn export" onClick={handleClick}>
                   <div className="text-wrapper">
                     <div className="export-text">
                       Export Playlist 
                     </div>
-                    <svg xmlns="http://www.w3.org/2000/svg" style={{'margin':'auto', 'marginLeft':'0'}} width="20" height="20" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#ffffff" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                    <svg xmlns="http://www.w3.org/2000/svg" style={{'margin':'auto', 'marginLeft':'0'}} width="24" height="24" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#ffffff" fill="none" strokeLinecap="round" strokeLinejoin="round">
                       <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                       <path d="M14 3v4a1 1 0 0 0 1 1h4" />
                       <path d="M11.5 21h-4.5a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v5m-5 6h7m-3 -3l3 3l-3 3" />
@@ -128,16 +136,23 @@ const Discovery = ({
                   </div>
                 </button>
                 {playlistURL &&
-                  <button className="copy-btn" onClick={handleCopy}>
+                  <button className="btn copy" onClick={handleCopy}>
                     <div className="text-wrapper">
                       <div className="export-text">
                         Copy Link
                       </div>
-                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                         <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
                         <rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect>
                       </svg>
                     </div>
+                  </button>
+                }
+                {matches.length && 
+                  <button className="btn clear"onClick={clearMatches}>
+                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                      <path stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z"/>
+                    </svg>
                   </button>
                 }
               </div>
