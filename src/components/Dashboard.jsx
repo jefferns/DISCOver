@@ -99,6 +99,7 @@ export default function Dashboard({
             title={'Recommendations'}
             items={recommendations}
             show={displayRecs}
+            listClass={'dash-list'}
           />
         </div>
       </div>

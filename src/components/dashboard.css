@@ -10,13 +10,14 @@
   display: flex;
   flex-direction: row; 
   flex-wrap: wrap;
-  justify-content: center;
+  justify-content: space-evenly;
   border: 7px solid rgb(0, 66, 0);
   border-radius: 60px;
   background-color: white;
-  overflow-y: scroll;
+  overflow-y: auto;
 
-  .list-container{
+  .dash-list{
+    margin: 20px;
     width: 350px;
     min-width: 200px;
     max-height: 90%;
@@ -26,7 +27,7 @@
     background-color: rgb(236, 236, 236);
     border:1px solid rgb(134, 134, 134);
   }
-  .list-container > h3{
+  .dash-list > h3{
     margin: 0;
     padding: 5px;
     position: sticky;

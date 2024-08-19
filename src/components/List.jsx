@@ -4,14 +4,15 @@ import './list.css';
 
 
 const List = ({
+  listClass,
   title,
   items,
-  show
+  show,
 }) => {
   return(
     <>
       {show &&
-        <div className="list-container">
+        <div className={`list-container + ${listClass}`}>
           <h3>{title}: </h3>
           <div className='list-body'>
             {items.length > 0 

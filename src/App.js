@@ -65,8 +65,7 @@ function App() {
 
           </Route>
           <Route path='/token' element={<AccessToken/>}/>
-          <Route exact path='/' element={<RestoreSession/>}/>          
-          <Route path="*" element={<Navigate to="/dashboard" replace/>} />
+          <Route path="*" element={<RestoreSession/>} />
         </Routes>
       </div>
     </Router>

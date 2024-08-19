@@ -6,7 +6,7 @@ function Player({
   track, 
   settings, 
   setSettings,
-  setIndex
+  setIndex,
 }) {
   const imgRef = useRef(null);
   const wrapperRef = useRef(null);
@@ -34,6 +34,7 @@ function Player({
 
     var deltaX = event.clientX - startPos.x;
     var angle = deltaX / 10;
+    angle = angle > 0 ? Math.min(30, angle) : Math.max(-30, angle);
     const scale = getRingScale(deltaX);
     const color = deltaX > 1 ? 'green' : 'red';
     wrapperRef.current.style.boxShadow = `0px 0px ${scale}px ${color}`;
@@ -72,13 +73,13 @@ function Player({
 
   useEffect(()=>{
     // Add event listeners for handling drag/tilt animations
-    document.getElementById('album-art').addEventListener('dragstart', handleMouseDown);
-    document.getElementById('album-art').addEventListener('dragover', handleMouseMove);
-    document.getElementById('album-art').addEventListener('dragend', handleMouseUp);
+    document.getElementById('discovery-container').addEventListener('dragstart', handleMouseDown);
+    document.getElementById('discovery-container').addEventListener('dragover', handleMouseMove);
+    document.getElementById('discovery-container').addEventListener('dragend', handleMouseUp);
     return () => {
-      document.getElementById('album-art')?.removeEventListener('dragstart', handleMouseDown);
-      document.getElementById('album-art')?.removeEventListener('drag', handleMouseMove);
-      document.getElementById('album-art')?.removeEventListener('dragend', handleMouseUp);
+      document.getElementById('discovery-container')?.removeEventListener('dragstart', handleMouseDown);
+      document.getElementById('discovery-container')?.removeEventListener('dragover', handleMouseMove);
+      document.getElementById('discovery-container')?.removeEventListener('dragend', handleMouseUp);
     };
   }, [handleMouseUp, handleMouseMove, handleMouseDown]);
 

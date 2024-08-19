@@ -1,5 +1,4 @@
 .go-wrapper {
-  margin-top: 3vh;
 
   button {
     width: 10vw;
@@ -9,5 +8,6 @@
     border-radius: 10px;
     font-size: 1.2rem;
     border: 2px solid rgb(0,66,0);
+    filter: drop-shadow(2px 2px);
   }
 }
