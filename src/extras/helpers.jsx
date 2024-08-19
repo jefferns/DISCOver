@@ -45,8 +45,8 @@ export const isNone = (option) => {
 
 export const getRedirectURL = () => {
   const hostname = window.location.hostname;
-  if (hostname.includes('localhost')) return 'http://localhost:3000/token';
-  return 'https://jefferis.dev/token';
+  if (hostname.includes('localhost')) return 'http://localhost:3000';
+  return 'https://jefferis.dev/';
 };
 
 export function debounce(cb, delay = 1000) {
@@ -61,8 +61,8 @@ export function debounce(cb, delay = 1000) {
 };
 
 export const getAccessCode = () => {
-  const code = localStorage.getItem('access_code');
-  if (!code) alert('Access Code not found!');
+  const code = localStorage.getItem('code');
+  if (!code) console.error('Access Code not found!');
   return code;
 };
 

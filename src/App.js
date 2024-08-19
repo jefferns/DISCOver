@@ -1,10 +1,9 @@
 import { useState } from 'react';
-import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import { HashRouter as Router, Route, Routes } from 'react-router-dom';
 import './App.css';
 import Login from './components/Login'
 import Dashboard from './components/Dashboard';
 import Discovery from './components/Discovery';
-import AccessToken from './components/AccessToken';
 import RestoreSession from './components/RestoreSession';
 
 const emptyTrack = {
@@ -64,7 +63,6 @@ function App() {
           }>
 
           </Route>
-          <Route path='/token' element={<AccessToken/>}/>
           <Route path="*" element={<RestoreSession/>} />
         </Routes>
       </div>

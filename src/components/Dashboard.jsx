@@ -4,7 +4,7 @@ import List from './List';
 import Banner from './Banner';
 import SettingsPanel from './Settings/SettingsPanel';
 import './dashboard.css';
-import { clearLocalStorage, isTokenExpired } from '../extras/helpers';
+import { clearLocalStorage, getAccessCode, isTokenExpired } from '../extras/helpers';
 import { useNavigate } from 'react-router-dom';
 import { loadToken, refreshToken } from '../extras/api';
 
@@ -27,7 +27,7 @@ export default function Dashboard({
   const navigate = useNavigate();
 
   const getTokens = useCallback(() => {
-    const code = localStorage.getItem('access_code');
+    const code = getAccessCode();
     if (!code) return navigate('/login');
     try {
       loadToken(code);
