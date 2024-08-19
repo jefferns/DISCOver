@@ -37,7 +37,7 @@ export default function Login({navigate}) {
       localStorage.setItem('code', code);
       clearURLParams();
     };
-    if (code && isTokenExpired()) navigate('dashboard');
+    if (code) navigate('dashboard');
   }, [navigate]);
 
   return (

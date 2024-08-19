@@ -3,10 +3,13 @@ import './player.css';
 
 function Player({
   addToMatches,
-  track, 
+  index,
+  reccomendations,
+  refreshReccomendations, 
   settings, 
   setSettings,
   setIndex,
+  track,
 }) {
   const imgRef = useRef(null);
   const wrapperRef = useRef(null);
@@ -44,7 +47,11 @@ function Player({
   const handleDrop = useCallback((decision) => {
     if(decision === 'right') addToMatches(track);
     setIndex(prev => prev + 1);
-  }, [track, setIndex, addToMatches]);
+    if (index > reccomendations.length - 5 ) {
+      refreshReccomendations();
+      setIndex(0);
+    };
+  }, [track, setIndex, addToMatches, index, reccomendations, refreshReccomendations]);
 
   const handleMouseUp = useCallback((event) => {
     setIsDragging(false);

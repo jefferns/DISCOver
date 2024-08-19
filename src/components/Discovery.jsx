@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useLayoutEffect, useState } from 'react';
-import { addTracksToPlaylist, createPlaylist, getMe } from '../extras/api';
+import { addTracksToPlaylist, createPlaylist, getMe, getRecommendations } from '../extras/api';
 import Player from './Player';
 import List from './List';
 import './discovery.css';
@@ -13,8 +13,10 @@ const Discovery = ({
   navigate, 
   page, 
   recommendations,
+  seeds, 
   settings,
   setCurrentTrack,
+  setRecommendations,
   setSettings,
   setShowSettings,
   showSettings,
@@ -83,11 +85,35 @@ const Discovery = ({
     setPlaylistURL('');
   }, []);
 
+  const getSeedsFromMatches = useCallback(() => {
+    const count = Math.min(matches.length, 5);
+    const newSeeds = [];
+    for (let i = 0; i < count; i++) {
+      newSeeds.push(matches[i]);
+    }
+    return newSeeds;
+  }, [matches]);
+
+  const refreshReccomendations = useCallback(() => {
+    if (!matches) return;
+    const newSeeds = matches.length
+      ? getSeedsFromMatches()
+      : seeds;
+    getRecommendations(newSeeds, 'track')
+    .then(response => response.json())
+    .then(response => {
+      console.info('AHHHHHHHHHHHHHHHHHH')
+      let tracks = response.tracks.filter((track) => !!track.preview_url?.length);
+      setRecommendations(tracks);
+      setCurrentTrack(tracks[0]);
+    });
+  }, [getSeedsFromMatches, matches, seeds, setCurrentTrack, setRecommendations]);
+
   useEffect(() => {
     // save matches every time you like a new song
     if (!matches.length || !settings.saveMatches) return;
     localStorage.setItem('matches', JSON.stringify(matches));
-  }, [matches.length, settings.saveMatches]);
+  }, [matches, matches.length, settings.saveMatches]);
 
   useLayoutEffect(() => {
     if (!recommendations[index]) return;
@@ -113,10 +139,13 @@ const Discovery = ({
           <div className="left">
             {currentTrack && <Player
               addToMatches={addToMatches}
-              track={currentTrack}
+              index={index}
+              reccomendations={recommendations}
+              refreshReccomendations={refreshReccomendations}
               settings={settings}
               setSettings={setSettings}
               setIndex={setIndex}
+              track={currentTrack}
             />}
           </div>
           <div className="right">
@@ -124,6 +153,7 @@ const Discovery = ({
               title={'Matches'}
               items={matches}
               show={true}
+              listClass={'matches'}
             />
             {matches.length > 0
               ? <div className='matches-btns-wrapper'>

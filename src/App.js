@@ -59,7 +59,9 @@ function App() {
           navigate={setPage}
           page={page}
           recommendations={recommendations}
+          seeds={seeds}
           setCurrentTrack={setCurrentTrack}
+          setRecommendations={setRecommendations}
           setSettings={setSettings}
           setShowSettings={setShowSettings}
           settings={settings}

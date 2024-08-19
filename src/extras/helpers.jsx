@@ -5,7 +5,7 @@ export const getToken = () => {
   if (!token) {
     alert('Session expired: Try reloading or clearing cache');
     console.error('No token found!');
-    // localStorage.clear();
+    localStorage.clear();
     return '';
   }
   return token;

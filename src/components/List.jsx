@@ -12,7 +12,7 @@ const List = ({
   return(
     <>
       {show &&
-        <div className={`list-container + ${listClass}`}>
+        <div className={`list-container ${listClass}`}>
           <h3>{title}: </h3>
           <div className='list-body'>
             {items.length > 0 
