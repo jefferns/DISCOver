@@ -3,7 +3,6 @@ import './App.css';
 import Login from './components/Login'
 import Dashboard from './components/Dashboard';
 import Discovery from './components/Discovery';
-import RestoreSession from './components/RestoreSession';
 
 const emptyTrack = {
   preview_url: '',
@@ -66,10 +65,6 @@ function App() {
           settings={settings}
           showSettings={showSettings}
         />
-      }
-      {
-        page === 'restore' &&
-        <RestoreSession navigate={setPage}/>
       }
    </div>
   );
