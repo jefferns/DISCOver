@@ -1,10 +1,8 @@
-import { useNavigate } from 'react-router-dom';
 import './goButton.css';
 
-const GoButton = () => {
-  const navigate = useNavigate();
+const GoButton = ({navigate}) => {
   const handleClick = () => {
-    navigate('/discovery');
+    navigate('discovery');
   };
 
   return (

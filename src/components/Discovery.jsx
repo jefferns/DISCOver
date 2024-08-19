@@ -10,6 +10,8 @@ import SettingsPanel from './Settings/SettingsPanel';
 
 const Discovery = ({
   currentTrack,
+  navigate, 
+  page, 
   recommendations,
   settings,
   setCurrentTrack,
@@ -95,6 +97,8 @@ const Discovery = ({
   return (
     <>
       <Banner 
+        navigate={navigate}
+        page={page}
         showSettings={showSettings}
         setShowSettings={setShowSettings}
       />

@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { getAuthUrl } from '../extras/api';
 import './login.css';
+import { getAccessCode, isTokenExpired } from '../extras/helpers';
 
 
 // export const fetchAccessTokens = async () => {
@@ -20,11 +21,25 @@ import './login.css';
 
 
 
-export default function Login() {
+export default function Login({navigate}) {  
   const handleLogin = () => {
     const url = getAuthUrl();
     window.location = url;
   };
+
+  useEffect(() => {
+    // Hacky fix to use Spotify's RedirectURI with React HashRouter
+    const { search } =  window.location;
+    const index = search.indexOf('=');
+    let code = getAccessCode();
+    if (index >= 0) {
+      code = search.substring(index + 1);
+      localStorage.setItem('code', code);
+    };
+    if (!code) navigate('login');
+    if (isTokenExpired()) navigate('login');
+    navigate('dashboard');
+  }, [navigate]);
 
   return (
     <div className="welcome">

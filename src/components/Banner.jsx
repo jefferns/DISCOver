@@ -1,20 +1,18 @@
 import React from 'react';
 import './banner.css';
-import { useNavigate , useLocation } from 'react-router-dom';
 
 
 const Banner = ({
+  navigate,
+  page, 
   showSettings,
-  setShowSettings
+  setShowSettings,
 }) => {
-  const navigate = useNavigate();
-  const location = useLocation();
-  const { pathname } = location;
 
-  const showBackArrow = pathname === '/discovery';
+  const showBackArrow = page === 'discovery';
 
   const handleBack = () => {
-    navigate('/dashboard');
+    navigate('dashboard');
   };
 
   const toggleSettings = () => {

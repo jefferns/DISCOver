@@ -10,6 +10,7 @@ import SeedTypeSelector from './SeedTypeSelector';
 
 const Seeding = ({
   displayRecs,
+  navigate,
   seeds,
   seedType,
   setSeeds,
@@ -114,7 +115,7 @@ const Seeding = ({
           seeds={seeds}
           setSeeds={setSeeds}
         />
-        {displayRecs && <GoButton/>}        
+        {displayRecs && <GoButton navigate={navigate}/>}        
       </div>
     </>
   );

@@ -10,6 +10,8 @@
     font-weight: bold;
   }
   .player-album {
+    display: flex;
+    justify-content: center;
     margin: 10px;
 
     .album-art {

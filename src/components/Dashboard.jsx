@@ -5,12 +5,12 @@ import Banner from './Banner';
 import SettingsPanel from './Settings/SettingsPanel';
 import './dashboard.css';
 import { clearLocalStorage, getAccessCode, isTokenExpired } from '../extras/helpers';
-import { useNavigate } from 'react-router-dom';
 import { loadToken, refreshToken } from '../extras/api';
 
 
 export default function Dashboard({
   displayRecs, 
+  navigate, 
   recommendations,
   seeds,
   seedType, 
@@ -24,17 +24,16 @@ export default function Dashboard({
   settings,
   showSettings,
 }) {
-  const navigate = useNavigate();
 
   const getTokens = useCallback(() => {
     const code = getAccessCode();
-    if (!code) return navigate('/login');
+    if (!code) return navigate('login');
     try {
       loadToken(code);
     } catch (error) {
       console.error('Error fetching access token: ', error);
       clearLocalStorage();
-      return navigate('/login');
+      return navigate('login');
     };
   }, [navigate]);
 
@@ -43,7 +42,7 @@ export default function Dashboard({
     if (refresh === "undefined") {
       console.error('Error: Refresh Token not found in Storage');
       clearLocalStorage();
-      navigate('/login');
+      navigate('login');
     };
     try {
       refreshToken(refresh);
@@ -63,7 +62,7 @@ export default function Dashboard({
       // if it's expired, refresh it
       handleRefreshToken();
     }
-  }, [getTokens, handleRefreshToken, navigate]);
+  }, [getTokens, handleRefreshToken]);
 
   useEffect(()=>{
     if(!recommendations.length) setDisplayingRecs(false);
@@ -73,6 +72,7 @@ export default function Dashboard({
   return (
     <>
       <Banner 
+        navigate={navigate}
         showSettings={showSettings}
         setShowSettings={setShowSettings}
       />
@@ -86,6 +86,7 @@ export default function Dashboard({
         <div className='upper-dash'>
           <Seeding
             displayRecs={displayRecs}
+            navigate={navigate}
             seeds={seeds}
             settings={settings}
             seedType={seedType}
