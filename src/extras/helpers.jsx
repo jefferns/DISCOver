@@ -82,3 +82,7 @@ export const isTokenExpired = () => {
   if (now > expiredTime) return true;
   return false;
 };
+
+export const clearURLParams = () => {
+  window.history.pushState({}, document.title, window.location.pathname);
+};

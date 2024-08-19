@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { getAuthUrl } from '../extras/api';
 import './login.css';
-import { getAccessCode, isTokenExpired } from '../extras/helpers';
+import { clearURLParams, getAccessCode, isTokenExpired } from '../extras/helpers';
 
 
 // export const fetchAccessTokens = async () => {
@@ -35,10 +35,9 @@ export default function Login({navigate}) {
     if (index >= 0) {
       code = search.substring(index + 1);
       localStorage.setItem('code', code);
+      clearURLParams();
     };
-    if (!code) navigate('login');
-    if (isTokenExpired()) navigate('login');
-    navigate('dashboard');
+    if (code && isTokenExpired()) navigate('dashboard');
   }, [navigate]);
 
   return (

@@ -66,7 +66,7 @@ export default function Dashboard({
 
   useEffect(()=>{
     if(!recommendations.length) setDisplayingRecs(false);
-  }, [setDisplayingRecs, recommendations]);
+  }, [setDisplayingRecs, recommendations.length]);
 
 
   return (
