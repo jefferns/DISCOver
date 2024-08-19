@@ -13,7 +13,7 @@ const RestoreSession = () => {
       code = search.substring(index + 1);
       localStorage.setItem('code', code);
     };
-    if (code === 'undefined') window.location.replace(origin + '/#/login');
+    if (!code) window.location.replace(origin + '/#/login');
     if (isTokenExpired()) window.location.replace(origin + '/#/login');
     window.location.replace(origin + '/#/dashboard');
   }, [navigate]);
