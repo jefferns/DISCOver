@@ -6,6 +6,7 @@ import './discovery.css';
 import { isNone, pruneTrack } from '../extras/helpers';
 import Banner from './Banner';
 import SettingsPanel from './Settings/SettingsPanel';
+import CreatePlaylistModal from './CreatePlaylistModal';
 
 
 const Discovery = ({
@@ -102,7 +103,6 @@ const Discovery = ({
     getRecommendations(newSeeds, 'track')
     .then(response => response.json())
     .then(response => {
-      console.info('AHHHHHHHHHHHHHHHHHH')
       let tracks = response.tracks.filter((track) => !!track.preview_url?.length);
       setRecommendations(tracks);
       setCurrentTrack(tracks[0]);
@@ -122,6 +122,7 @@ const Discovery = ({
 
   return (
     <>
+      <CreatePlaylistModal/>
       <Banner 
         navigate={navigate}
         page={page}

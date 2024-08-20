@@ -6,6 +6,7 @@ const redirect_URI = getRedirectURL();
 
 const apiGet = async (path, options = {}) => {
   const token = getToken();
+  if(!token) return false;
   const response = await fetch(URL + path, {
     method: 'GET',
     headers: {
@@ -23,6 +24,7 @@ const apiGet = async (path, options = {}) => {
 
 const apiPut = async (path, body = '', options = {}) => {
   const token = getToken();
+  if(!token) return false;
   const response = await fetch(URL + path, {
     method: 'PUT',
     body: body,
@@ -40,6 +42,7 @@ const apiPut = async (path, body = '', options = {}) => {
 
 const apiPost = async (path, body = '', options = {}) => {
   const token = getToken();
+  if(!token) return false;
   const response = await fetch(URL + path, {
     method: 'POST',
     body: body,
@@ -111,7 +114,7 @@ export const createPlaylist = async (
   name,
   is_public=false,
   is_collaborative=false,
-  description='test description'
+  description='Created with DISCOver at jefferis.dev'
 ) => {
   const body = `{
     "name":"${name}",
