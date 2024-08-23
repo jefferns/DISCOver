@@ -112,9 +112,9 @@ export const getRecommendations = async (seeds, type) => {
 export const createPlaylist = async (
   user_id,
   name,
+  description='Created with DISCOver at jefferis.dev',
   is_public=false,
   is_collaborative=false,
-  description='Created with DISCOver at jefferis.dev'
 ) => {
   const body = `{
     "name":"${name}",

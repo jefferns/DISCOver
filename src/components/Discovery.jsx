@@ -23,6 +23,7 @@ const Discovery = ({
   showSettings,
 }) => {
   const [matches, setMatches] = useState([]);
+  const [showCreationModal, setShowCreationModal] = useState(false);
   const [playlistURL, setPlaylistURL] = useState('');
   const [index, setIndex] = useState(0);
 
@@ -32,33 +33,8 @@ const Discovery = ({
     setMatches(clone);
   }, [matches])
 
-  const addMatchesToPlaylist = (id) => {
-    let uris = []
-    matches.forEach((song) => {
-      uris.push(song.uri)
-    })
-    addTracksToPlaylist(id, uris);
-  };
-
   const handleClick = () => {
-    getMe()
-    .then(response => response.json())
-    .then(response => {
-      const id = response.id;
-
-      // create playlist
-      createPlaylist(id, 'DISCOvery')
-      .then(response => response.json())
-      .then(response => {
-        let playlist_id = response.id;
-        if(!playlist_id) return;
-        if(!matches) return;
-        // add each song to the new playlist
-        addMatchesToPlaylist(playlist_id);
-        setPlaylistURL(response.external_urls.spotify);
-        alert('Successfully exported playlist!');
-      });
-    });
+    setShowCreationModal(true);
   };
 
   const handleCopy = useCallback(() => {
@@ -122,7 +98,12 @@ const Discovery = ({
 
   return (
     <>
-      <CreatePlaylistModal/>
+      <CreatePlaylistModal
+        matches={matches}
+        setPlaylistURL={setPlaylistURL}
+        setShowCreationModal={setShowCreationModal}
+        show={showCreationModal}
+      />
       <Banner 
         navigate={navigate}
         page={page}
