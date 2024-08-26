@@ -86,3 +86,5 @@ export const isTokenExpired = () => {
 export const clearURLParams = () => {
   window.history.pushState({}, document.title, window.location.pathname);
 };
+
+export const wait = t => new Promise((resolve, reject) => setTimeout(resolve, t))

@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useLayoutEffect, useState } from 'react';
-import { addTracksToPlaylist, createPlaylist, getMe, getRecommendations } from '../extras/api';
+import { getRecommendations } from '../extras/api';
 import Player from './Player';
 import List from './List';
 import './discovery.css';

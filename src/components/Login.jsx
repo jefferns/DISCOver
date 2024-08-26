@@ -43,7 +43,7 @@ export default function Login({navigate}) {
   return (
     <div className="welcome">
       <div className='content'>
-        <img alt="DISCOvery logo" src="logo_transparent.png" style={{height: '150px'}}/>
+        <img alt="DISCOvery logo" src="logo_transparent.png" style={{height: '350px'}}/>
         <h1>Welcome!</h1>
         <button className='btn' type='button' onClick={ handleLogin }>
           Log in with Spotify

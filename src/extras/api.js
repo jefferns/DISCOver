@@ -1,4 +1,5 @@
 import { getRedirectURL, getToken } from './helpers';
+import { coverImageBase64 } from './encodedImage';
 
 const URL = 'https://api.spotify.com/v1';
 const API_URL = 'https://accounts.spotify.com/api';
@@ -34,9 +35,6 @@ const apiPut = async (path, body = '', options = {}) => {
       ...options,
     }
   });
-  // if (response.status === 401) {
-  //   refreshToken();
-  // };
   return response;
 };
 
@@ -52,9 +50,6 @@ const apiPost = async (path, body = '', options = {}) => {
       ...options,
     }
   });
-  // if (response.status === 401) {
-  //   refreshToken();
-  // };
   return response;
 };
 
@@ -125,6 +120,13 @@ export const createPlaylist = async (
   return apiPost(`/users/${user_id}/playlists`, body);
 };
 
+export const setPlaylistImage = async (id) => {
+  const options = {
+    'Content-Type': 'image/jpeg',
+  };
+  return apiPut(`/playlists/${id}/images`, coverImageBase64, options);
+};
+
 export const addTracksToPlaylist = async (playlist_id, uris) => {
   let body_uris = '';
   uris.forEach(uri => body_uris += `"${uri}",`);
@@ -140,6 +142,7 @@ export const getAuthUrl = () => {
     'playlist-modify-public',
     'playlist-modify-private',
     'user-top-read',
+    'ugc-image-upload',
   ];
   const clientId = getClientId();
   const authUrl = `https://accounts.spotify.com/authorize?client_id=${clientId}&redirect_uri=${redirect_URI}&scope=${scopes.join('%20')}&response_type=code&show_dialog=true`;
