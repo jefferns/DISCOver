@@ -3,6 +3,7 @@ import './settingsPanel.css';
 import { AdvancedSettings } from './AdvancedSettings';
 import TimeFrame from './TimeFrame';
 import SaveMatches from './SaveMatches';
+import { ADVANCED_SETTINGS_FLAG } from '../../extras/flags';
 
 
 const SettingsPanel = ({settings, show, setSettings, setShowSettings}) => {
@@ -62,7 +63,7 @@ const SettingsPanel = ({settings, show, setSettings, setShowSettings}) => {
           onChange={ handleVolumeChange }
         />
       </div>
-      { showAdvanced && <AdvancedSettings/> }
+      { ADVANCED_SETTINGS_FLAG && showAdvanced && <AdvancedSettings/> }
       
       <button onClick={toggleAdvanced}>{showAdvanced ? "Less" : "Advanced"}</button>
     </div>

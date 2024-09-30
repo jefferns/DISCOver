@@ -83,10 +83,18 @@ function Player({
     document.getElementById('discovery-container').addEventListener('dragstart', handleMouseDown);
     document.getElementById('discovery-container').addEventListener('dragover', handleMouseMove);
     document.getElementById('discovery-container').addEventListener('dragend', handleMouseUp);
+
+    document.getElementById('discovery-container')?.addEventListener('touchend', handleMouseUp);
+    document.getElementById('discovery-container')?.addEventListener('touchmove', handleMouseMove);
+    document.getElementById('discovery-container')?.addEventListener('touchstart', handleMouseDown);
     return () => {
       document.getElementById('discovery-container')?.removeEventListener('dragstart', handleMouseDown);
       document.getElementById('discovery-container')?.removeEventListener('dragover', handleMouseMove);
       document.getElementById('discovery-container')?.removeEventListener('dragend', handleMouseUp);
+
+      document.getElementById('discovery-container')?.removeEventListener('touchend', handleMouseUp);
+      document.getElementById('discovery-container')?.removeEventListener('touchmove', handleMouseMove);
+      document.getElementById('discovery-container')?.removeEventListener('touchstart', handleMouseDown);
     };
   }, [handleMouseUp, handleMouseMove, handleMouseDown]);
 

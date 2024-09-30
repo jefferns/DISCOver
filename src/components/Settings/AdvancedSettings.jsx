@@ -17,7 +17,6 @@ export const AdvancedSettings = () => {
       text: 'Danceability',
       value: 0,
     },
-    // duration: {},
     Energy: {
       min: 0,
       max: 1,
@@ -42,12 +41,6 @@ export const AdvancedSettings = () => {
       text: 'Loudness',
       value: 0,
     },
-    Key: {
-      min: 0,
-      max: 11,
-      text: 'Key',
-      value: 0,
-    },
     Popularity: {
       min: 0,
       max: 100,
@@ -60,7 +53,6 @@ export const AdvancedSettings = () => {
       text: 'Speechiness',
       value: 0,
     },
-    // 'valence': {},
   };
 
   const addNewParameter = (event) => {
